@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TempGround
   - Inter
+  - Enemy
   layers:
   - Default
   - TransparentFX

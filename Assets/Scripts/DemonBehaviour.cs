@@ -9,13 +9,16 @@ public class DemonBehaviour : MonoBehaviour
     public InteractionDemon scriptInteraccion;
 
     private NavMeshAgent agente;
-    private int indicePatrulla = 0;
     private bool enfadado = false;
     private bool faseFinal = false;
+
+    public float distanciaMinima = 3f;
+    private float velocidadNormal;
 
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
+        velocidadNormal = agente.speed;
         IrAlSiguientePunto();
     }
 
@@ -41,6 +44,8 @@ public class DemonBehaviour : MonoBehaviour
     {
         enfadado = false;
         faseFinal = false;
+        agente.speed = velocidadNormal;
+        agente.stoppingDistance = 0f;
 
         Vector3 destinoAleatorio = GenerarDestinoAleatorio();
         agente.SetDestination(destinoAleatorio);
@@ -48,23 +53,25 @@ public class DemonBehaviour : MonoBehaviour
         Debug.Log("El demonio se ha calmado y vuelve a patrullar aleatoriamente.");
     }
 
-
     public void Teletransportarse()
     {
         Vector3 posicionJugador = jugador.position;
         Vector3 direccionFrontal = jugador.forward;
 
         Vector3 nuevaPosicion = posicionJugador + direccionFrontal * 1.5f;
-
         transform.position = nuevaPosicion;
-
         transform.LookAt(posicionJugador);
+
+        faseFinal = true;
+        agente.stoppingDistance = 0f;
+        agente.speed = 8f;
+        agente.SetDestination(jugador.position);
     }
 
 
     void Patrullar()
     {
-        if (!agente.pathPending && agente.remainingDistance < 0.5f)
+        if (!agente.hasPath || agente.remainingDistance < 0.5f)
         {
             Vector3 destinoAleatorio = GenerarDestinoAleatorio();
             agente.SetDestination(destinoAleatorio);
@@ -73,7 +80,7 @@ public class DemonBehaviour : MonoBehaviour
 
     Vector3 GenerarDestinoAleatorio()
     {
-        float rango = 10f; 
+        float rango = 10f;
         Vector3 centro = transform.position;
 
         Vector3 puntoAleatorio = centro + new Vector3(
@@ -88,21 +95,35 @@ public class DemonBehaviour : MonoBehaviour
             return hit.position;
         }
 
-        return transform.position; 
+        return transform.position;
     }
-
 
     void IrAlSiguientePunto()
     {
         if (puntosPatrulla.Length > 0)
-            agente.SetDestination(puntosPatrulla[indicePatrulla].position);
+        {
+            agente.SetDestination(puntosPatrulla[0].position);
+        }
     }
 
     void PerseguirJugador()
     {
-        if (jugador != null)
-            agente.SetDestination(jugador.position);
+        if (jugador == null) return;
+
+        if (faseFinal)
+        {
+            agente.stoppingDistance = 0f;
+            agente.speed = 8f;
+        }
+        else
+        {
+            agente.stoppingDistance = distanciaMinima;
+            agente.speed = velocidadNormal;
+        }
+
+        agente.SetDestination(jugador.position);
     }
+
 
     void OnTriggerEnter(Collider otro)
     {
@@ -112,7 +133,4 @@ public class DemonBehaviour : MonoBehaviour
             Debug.Log("El demonio ha matado al jugador.");
         }
     }
-
-
 }
-

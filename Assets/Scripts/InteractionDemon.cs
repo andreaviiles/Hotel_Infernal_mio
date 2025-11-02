@@ -70,32 +70,14 @@ public class InteractionDemon : MonoBehaviour
         }
     }
 
-    void OnGUI()
-    {
-        if (jugadorCerca)
-        {
-            GUIStyle style = new GUIStyle();
-            style.fontSize = 20;
-            style.normal.textColor = Color.white;
-            style.alignment = TextAnchor.MiddleCenter;
-
-            Rect rect = new Rect(Screen.width / 2 - 150, Screen.height - 100, 300, 50);
-            GUI.Label(rect, "Pulsa E para interactuar", style);
-        }
-
-        if (!cronometroDetenido)
-        {
-            GUIStyle timerStyle = new GUIStyle();
-            timerStyle.fontSize = 16;
-            timerStyle.normal.textColor = (tiempoActual < tiempoFinal) ? Color.white : Color.red;
-            GUI.Label(new Rect(10, 10, 250, 30), "Tiempo: " + Mathf.Ceil(tiempoFinal - tiempoActual).ToString() + "s", timerStyle);
-        }
-    }
-
     public bool EstaEnFaseFinal()
     {
         return faseFinal;
     }
+
+    public bool IsPlayerNear() => jugadorCerca;
+    public float GetRemainingTime() => Mathf.Max(0f, tiempoFinal - tiempoActual);
+
 }
 
 

@@ -135,26 +135,11 @@ public class InteractionScript : MonoBehaviour
         }
     }
 
-    void OnGUI()
-    {
-        if (cerca)
-        {
-            GUIStyle style = new GUIStyle();
-            style.fontSize = 20;
-            style.normal.textColor = Color.white;
-            float x = (Screen.width - 200) / 2;
-            float y = Screen.height - 100;
-            GUI.Label(new Rect(x, y, 200, 50), "Presiona E para interactuar", style);
-        }
-
-        GUIStyle timerStyle = new GUIStyle();
-        timerStyle.fontSize = 16;
-        timerStyle.normal.textColor = (timer > 0) ? Color.white : Color.red;
-        GUI.Label(new Rect(10, 10, 250, 30), "Tiempo: " + Mathf.Ceil(timer).ToString() + "s", timerStyle);
-    }
 
     public float GetRemainingTime() => timer;
     public bool IsTimerStopped() => isTimerStopped;
+    public bool IsPlayerNear() => cerca;
+
 
 }
 

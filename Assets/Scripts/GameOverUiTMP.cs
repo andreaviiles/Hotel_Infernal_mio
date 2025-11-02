@@ -22,7 +22,7 @@ public class GameOverUITMP : MonoBehaviour
     {
         if (mostrarGameOver && Input.GetKeyDown(KeyCode.U))
         {
-            Time.timeScale = 0f; 
+            Time.timeScale = 1f; 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
