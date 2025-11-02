@@ -911,6 +911,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnifiedInteractionUI
   interactionScript: {fileID: 1624507937}
   interactionDemon: {fileID: 155484542}
+--- !u!114 &295850282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295850273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f2a14d89d01ac4fbd2d25f3ae59bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnifiedInteractionUI
+  interactionScript: {fileID: 1624507937}
+  interactionDemon: {fileID: 155484542}
 --- !u!1 &304485330
 GameObject:
   m_ObjectHideFlags: 0
@@ -4350,6 +4364,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4871497745949491386, guid: 6e1ba69bfdc69eb46a5814b6d044b65d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 295850278}
+    - targetCorrespondingSourceObject: {fileID: 4871497745949491386, guid: 6e1ba69bfdc69eb46a5814b6d044b65d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 295850282}
   m_SourcePrefab: {fileID: 100100000, guid: 6e1ba69bfdc69eb46a5814b6d044b65d, type: 3}
 --- !u!1 &1483057275
 GameObject:
