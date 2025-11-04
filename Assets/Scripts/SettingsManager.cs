@@ -12,14 +12,14 @@ public class SettingsManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); 
-            
+            DontDestroyOnLoad(gameObject);
+
             sensibilidad = PlayerPrefs.GetFloat("Sensibilidad", 120f);
             volumen = PlayerPrefs.GetFloat("Volumen", 1f);
         }
         else
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
 
@@ -33,9 +33,9 @@ public class SettingsManager : MonoBehaviour
     public void SetVolumen(float value)
     {
         volumen = value;
-        AudioListener.volume = value;
         PlayerPrefs.SetFloat("Volumen", value);
         PlayerPrefs.Save();
     }
 }
+
 

@@ -13,26 +13,24 @@ public class OptionsManager : MonoBehaviour
         sensibilidadSlider.value = SettingsManager.Instance.sensibilidad;
         volumenSlider.value = SettingsManager.Instance.volumen;
 
-        mouseLookScript.mouseSensitivity = SettingsManager.Instance.sensibilidad;
-        AudioListener.volume = SettingsManager.Instance.volumen;
-
         sensibilidadSlider.onValueChanged.AddListener(SetSensibilidad);
         volumenSlider.onValueChanged.AddListener(SetVolumen);
     }
 
 
 
+
     public void SetSensibilidad(float value)
     {
-        mouseLookScript.mouseSensitivity = value;
         SettingsManager.Instance.SetSensibilidad(value);
     }
 
     public void SetVolumen(float value)
     {
-        AudioListener.volume = value;
         SettingsManager.Instance.SetVolumen(value);
     }
+
+
 
 
 

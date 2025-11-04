@@ -11,10 +11,13 @@ public class MouseLook : MonoBehaviour
     void Start()
     {
         playerBody = transform;
-        mouseSensitivity = SettingsManager.Instance.sensibilidad;
+
+        if (SettingsManager.Instance != null)
+        {
+            mouseSensitivity = SettingsManager.Instance.sensibilidad;
+            AudioListener.volume = SettingsManager.Instance.volumen;
+        }
     }
-
-
 
     void Update()
     {

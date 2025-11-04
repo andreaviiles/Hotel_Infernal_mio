@@ -6,17 +6,18 @@ public class SettingsBootstrap : MonoBehaviour
     {
         if (SettingsManager.Instance == null)
         {
-            GameObject settingsPrefab = Resources.Load<GameObject>("Assets/Managers");
-            if (settingsPrefab != null)
+            GameObject prefab = Resources.Load<GameObject>("Managers/SettingsManager");
+            if (prefab != null)
             {
-                Instantiate(settingsPrefab);
-                Debug.Log("SettingsManager instanciado en Hotel");
+                Instantiate(prefab);
+                Debug.Log("SettingsManager instanciado");
             }
             else
             {
-                Debug.LogError("No se encontró el prefab SettingsManager ");
+                Debug.LogError("Prefab SettingsManager no encontrado");
             }
         }
     }
 }
+
 

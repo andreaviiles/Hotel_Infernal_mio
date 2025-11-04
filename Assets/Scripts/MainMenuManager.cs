@@ -44,6 +44,17 @@ public class MainMenuManager : MonoBehaviour
         controlesCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
     }
+
+    public void SetSensibilidad(float value)
+    {
+        SettingsManager.Instance.SetSensibilidad(value);
+    }
+
+    public void SetVolumen(float value)
+    {
+        SettingsManager.Instance.SetVolumen(value);
+    }
+
 }
 
 
