@@ -30,4 +30,10 @@ public class MouseLook : MonoBehaviour
 
         playerBody.Rotate(Vector3.up * mouseX);
     }
+
+    public void ActualizarSensibilidad(float nuevaSensibilidad)
+    {
+        mouseSensitivity = nuevaSensibilidad;
+        Debug.Log("Sensibilidad actualizada en MouseLook: " + mouseSensitivity);
+    }
 }

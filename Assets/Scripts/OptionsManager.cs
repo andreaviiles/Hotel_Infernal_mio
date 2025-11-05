@@ -23,15 +23,13 @@ public class OptionsManager : MonoBehaviour
     public void SetSensibilidad(float value)
     {
         SettingsManager.Instance.SetSensibilidad(value);
+
+        if (mouseLookScript != null)
+            mouseLookScript.ActualizarSensibilidad(value);
     }
 
     public void SetVolumen(float value)
     {
         SettingsManager.Instance.SetVolumen(value);
     }
-
-
-
-
-
 }
