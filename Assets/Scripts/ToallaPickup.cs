@@ -49,7 +49,9 @@ public class ToallaPickup : MonoBehaviour
 
                         if (toallaVisualPrefab != null && puntoColocacion != null)
                         {
-                            Instantiate(toallaVisualPrefab, puntoColocacion.position, puntoColocacion.rotation);
+                            // Ajuste opcional de altura si el pivot del prefab está centrado
+                            Vector3 offset = new Vector3(0, 0.5f, 0);
+                            Instantiate(toallaVisualPrefab, puntoColocacion.position + offset, puntoColocacion.rotation);
                         }
 
                         Debug.Log("Toalla entregada y colocada en el baño");
@@ -91,5 +93,6 @@ public class ToallaPickup : MonoBehaviour
         }
     }
 }
+
 
 

@@ -51,10 +51,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Detectar doble pulsación para dash con WASD
-        DetectDash(KeyCode.W, transform.forward);
-        DetectDash(KeyCode.S, -transform.forward);
-        DetectDash(KeyCode.A, -transform.right);
-        DetectDash(KeyCode.D, transform.right);
+        if (!llevaObjeto)
+        {
+            DetectDash(KeyCode.W, transform.forward);
+            DetectDash(KeyCode.S, -transform.forward);
+            DetectDash(KeyCode.A, -transform.right);
+            DetectDash(KeyCode.D, transform.right);
+        }
 
         // Movimiento horizontal con WASD
         float x = 0f;
@@ -87,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         {
             float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : speed;
             if (llevaObjeto)
-                currentSpeed *= 0.6f; 
+                currentSpeed *= 0.6f;
 
             controller.Move(moveInput * currentSpeed * Time.deltaTime);
         }
@@ -140,3 +143,4 @@ public class PlayerMovement : MonoBehaviour
         dashKey = key;
     }
 }
+
