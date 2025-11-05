@@ -28,6 +28,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveInput;
     private Dictionary<KeyCode, float> lastKeyPress = new Dictionary<KeyCode, float>();
 
+    private bool llevaObjeto = false;
+
+    public void LlevarObjeto(bool estado)
+    {
+        llevaObjeto = estado;
+    }
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -79,6 +86,9 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : speed;
+            if (llevaObjeto)
+                currentSpeed *= 0.6f; 
+
             controller.Move(moveInput * currentSpeed * Time.deltaTime);
         }
 

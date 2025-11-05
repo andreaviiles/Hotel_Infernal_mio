@@ -8,6 +8,8 @@ TagManager:
   - Inter
   - Enemy
   - Cleanable
+  - Toalla
+  - EntregaToalla
   layers:
   - Default
   - TransparentFX
