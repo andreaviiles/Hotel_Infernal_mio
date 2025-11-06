@@ -6,45 +6,37 @@ public class DemonBehaviour : MonoBehaviour
     public Transform jugador;
     public GameOverUITMP interfazGameOver;
 
+    public Transform[] puntosPatrulla;
+
     public float velocidadNormal = 5.5f;
     public float velocidadMatar = 8f;
     public float distanciaMinima = 6f;
 
-    public float tiempoEntreMovimientos = 0.5f;
-
-    // Área de patrulla libre
-    public float minX = -150f, maxX = 150f;
-    public float minZ = -150f, maxZ = 150f;
-
     private NavMeshAgent agente;
     private bool enfadado = false;
     private bool faseFinal = false;
-    private float tiempoMovimiento = 0f;
+    private int puntoActual = -1;
 
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
         agente.speed = velocidadNormal;
         agente.stoppingDistance = distanciaMinima;
-        MoverAleatoriamente();
+        MoverAPuntoDePatrulla();
     }
 
     void Update()
     {
         if (!enfadado && !faseFinal)
         {
-            tiempoMovimiento += Time.deltaTime;
-
-            if (tiempoMovimiento >= tiempoEntreMovimientos || agente.remainingDistance < 1f)
+            if (!agente.pathPending && agente.remainingDistance <= agente.stoppingDistance)
             {
-                MoverAleatoriamente();
-                tiempoMovimiento = 0f;
+                MoverAPuntoDePatrulla();
             }
         }
 
         if ((enfadado || faseFinal) && jugador != null)
         {
-            // Solo actualiza si el destino está lejos
             if (Vector3.Distance(agente.destination, jugador.position) > 1f)
             {
                 agente.SetDestination(jugador.position);
@@ -52,19 +44,19 @@ public class DemonBehaviour : MonoBehaviour
         }
     }
 
-    void MoverAleatoriamente()
+    void MoverAPuntoDePatrulla()
     {
-        Vector3 punto = new Vector3(
-            Random.Range(minX, maxX),
-            0f,
-            Random.Range(minZ, maxZ)
-        );
+        if (puntosPatrulla == null || puntosPatrulla.Length == 0) return;
 
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(punto, out hit, 10f, NavMesh.AllAreas))
+        int nuevoIndice;
+        do
         {
-            agente.SetDestination(hit.position);
-        }
+            nuevoIndice = Random.Range(0, puntosPatrulla.Length);
+        } while (nuevoIndice == puntoActual && puntosPatrulla.Length > 1);
+
+        puntoActual = nuevoIndice;
+        agente.SetDestination(puntosPatrulla[puntoActual].position);
+        Debug.Log($"Demonio patrullando hacia: {puntosPatrulla[puntoActual].name}");
     }
 
     public void ActivarPersecucionSuave()
@@ -87,19 +79,23 @@ public class DemonBehaviour : MonoBehaviour
 
     public void Calmar()
     {
-        if (!enfadado && !faseFinal)
+        if (faseFinal)
         {
-            Debug.Log("Demonio calmado");
+            Debug.Log("No se puede calmar al demonio en modo matar.");
+            return;
+        }
+
+        if (!enfadado)
+        {
+            Debug.Log("Demonio ya está calmado.");
             return;
         }
 
         enfadado = false;
-        faseFinal = false;
         agente.speed = velocidadNormal;
         agente.stoppingDistance = distanciaMinima;
-        MoverAleatoriamente();
-
-        Debug.Log("Demonio calmado: estado reiniciado, velocidad normal restaurada.");
+        MoverAPuntoDePatrulla();
+        Debug.Log("Demonio calmado: vuelve a patrullar.");
     }
 
     public void Teletransportarse()
@@ -119,7 +115,7 @@ public class DemonBehaviour : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if ((enfadado || faseFinal) && other.CompareTag("Player"))
+        if (faseFinal && other.CompareTag("Player"))
         {
             Debug.Log("Trigger detectado con el jugador.");
 
@@ -127,15 +123,18 @@ public class DemonBehaviour : MonoBehaviour
             {
                 interfazGameOver.ShowGameOverMessage();
                 Time.timeScale = 0f;
-                Debug.Log(" El demonio ha atrapado al jugador.");
+                Debug.Log("El demonio ha atrapado al jugador.");
             }
             else
             {
-                Debug.LogWarning(" Interfaz Game Over no asignada.");
+                Debug.LogWarning("Interfaz Game Over no asignada.");
             }
         }
     }
 }
+
+
+
 
 
 
