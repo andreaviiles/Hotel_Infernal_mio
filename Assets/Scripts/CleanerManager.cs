@@ -5,6 +5,7 @@ public class CleanerManager : MonoBehaviour
 {
     public Camera playerCamera;
     public GameObject[] cubosLimpiables;
+    public PlayerMovement playerMovement; // ← NUEVO
 
     private Dictionary<GameObject, int> interacciones = new Dictionary<GameObject, int>();
     private GameObject cuboActual;
@@ -26,6 +27,14 @@ public class CleanerManager : MonoBehaviour
     void Update()
     {
         if (limpiezaCompletada) return;
+
+        // 🚫 Bloquear si lleva la toalla
+        if (playerMovement != null && playerMovement.EstaLlevandoObjeto)
+        {
+            cerca = false;
+            cuboActual = null;
+            return;
+        }
 
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 2f))
@@ -79,5 +88,6 @@ public class CleanerManager : MonoBehaviour
 
     public bool LimpiezaCompletada => limpiezaCompletada;
 }
+
 
 

@@ -4,6 +4,7 @@ public class InteractionPromptUI : MonoBehaviour
 {
     public Camera playerCamera;
     public float distanciaInteraccion = 2f;
+    public PlayerMovement playerMovement; 
 
     private bool mostrarMensaje = false;
 
@@ -16,9 +17,19 @@ public class InteractionPromptUI : MonoBehaviour
         {
             string tag = hit.collider.tag;
 
-            if (tag == "Cleanable" || tag == "Toalla" || tag == "EntregaToalla")
+            if (playerMovement != null && playerMovement.EstaLlevandoObjeto)
             {
-                mostrarMensaje = true;
+                if (tag == "EntregaToalla")
+                {
+                    mostrarMensaje = true;
+                }
+            }
+            else
+            {
+                if (tag == "Cleanable" || tag == "Toalla" || tag == "EntregaToalla")
+                {
+                    mostrarMensaje = true;
+                }
             }
         }
     }
@@ -36,3 +47,4 @@ public class InteractionPromptUI : MonoBehaviour
         GUI.Label(rect, "Presiona E para interactuar", estilo);
     }
 }
+

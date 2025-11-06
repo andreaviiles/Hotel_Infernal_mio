@@ -4214,6 +4214,10 @@ PrefabInstance:
       value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 4820718614718698904, guid: 87c2e28cef6a54a4a812ae2b6eea7052, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1624507932}
+    - target: {fileID: 4820718614718698904, guid: 87c2e28cef6a54a4a812ae2b6eea7052, type: 3}
       propertyPath: 'cubosLimpiables.Array.data[0]'
       value: 
       objectReference: {fileID: 1060014156}
@@ -5132,6 +5136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractionPromptUI
   playerCamera: {fileID: 1364983921}
   distanciaInteraccion: 2
+  playerMovement: {fileID: 1624507932}
 --- !u!4 &1552226822
 Transform:
   m_ObjectHideFlags: 0

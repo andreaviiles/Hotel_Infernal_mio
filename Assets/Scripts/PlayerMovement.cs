@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
         llevaObjeto = estado;
     }
 
+    public bool EstaLlevandoObjeto => llevaObjeto;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
