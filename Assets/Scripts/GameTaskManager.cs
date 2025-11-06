@@ -86,14 +86,14 @@ public class GameTaskManager : MonoBehaviour
         if (Time.timeScale == 0f || juegoFinalizado) return;
 
         GUIStyle estiloTexto = new GUIStyle(GUI.skin.label);
-        estiloTexto.fontSize = 20;
+        estiloTexto.fontSize = 34;
         estiloTexto.normal.textColor = Color.white;
-        estiloTexto.alignment = TextAnchor.UpperCenter;
+        estiloTexto.alignment = TextAnchor.UpperLeft;
 
-        float anchoBarra = 300f;
-        float altoBarra = 25f;
-        float x = Screen.width / 2 - anchoBarra / 2;
-        float y = 60f;
+        float anchoBarra = 520f;
+        float altoBarra = 45f;
+        float x = 35f;
+        float y = 55f;
 
         GUI.color = Color.gray;
         GUI.DrawTexture(new Rect(x, y, anchoBarra, altoBarra), Texture2D.whiteTexture);
@@ -102,8 +102,9 @@ public class GameTaskManager : MonoBehaviour
         GUI.color = Color.cyan;
         GUI.DrawTexture(new Rect(x, y, anchoBarra * porcentaje, altoBarra), Texture2D.whiteTexture);
 
-        string texto = $"Tiempo global restante: {tiempoRestante:F1}s";
+        string texto = $"Tiempo restante: {tiempoRestante:F1}s";
         GUI.color = Color.white;
-        GUI.Label(new Rect(x, y - 30, anchoBarra, 30), texto, estiloTexto);
+        GUI.Label(new Rect(x, y - 45, anchoBarra, 45), texto, estiloTexto);
     }
+
 }
