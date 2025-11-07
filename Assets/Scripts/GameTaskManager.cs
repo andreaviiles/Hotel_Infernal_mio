@@ -9,7 +9,7 @@ public class GameTaskManager : MonoBehaviour
 
     public GameObject juegoFinalizadoCanvas;
 
-    public float tiempoTotal = 300f;
+    public float tiempoTotal = 210f;
     private float tiempoRestante;
     private bool persecucionActivada = false;
     private bool modoMatarActivado = false;

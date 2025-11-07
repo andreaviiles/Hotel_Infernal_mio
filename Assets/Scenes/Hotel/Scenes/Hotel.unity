@@ -13277,6 +13277,10 @@ PrefabInstance:
       value: GameTaskManger
       objectReference: {fileID: 0}
     - target: {fileID: 4464349456156088902, guid: cc17358c918f7e04da415d58d2af5eec, type: 3}
+      propertyPath: tiempoTotal
+      value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464349456156088902, guid: cc17358c918f7e04da415d58d2af5eec, type: 3}
       propertyPath: toallaPickup
       value: 
       objectReference: {fileID: 1445612193}
@@ -14404,6 +14408,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1073748559610356462, guid: 6e1ba69bfdc69eb46a5814b6d044b65d, type: 3}
+      propertyPath: m_Size.y
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1073748559610356462, guid: 6e1ba69bfdc69eb46a5814b6d044b65d, type: 3}
       propertyPath: m_IsTrigger
       value: 1
