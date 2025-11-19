@@ -941,7 +941,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &702978650
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1269,7 +1269,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025431440}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
@@ -1785,6 +1785,63 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 983909079839170388, guid: 872e0ddb16dfc2847bd5834c411036ba, type: 3}
   m_PrefabInstance: {fileID: 647358907841309303}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1848207306
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.232911
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000076293945
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.1060944
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
+      propertyPath: m_Name
+      value: Parasite L Starkie
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e74210c1246b7b42b3418cbb630ecd8, type: 3}
 --- !u!1 &1897590800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2719,3 +2776,4 @@ SceneRoots:
   - {fileID: 6796190586580882628}
   - {fileID: 8678199245139089925}
   - {fileID: 702978653}
+  - {fileID: 1848207306}
