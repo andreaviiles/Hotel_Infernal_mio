@@ -10,6 +10,7 @@ TagManager:
   - Cleanable
   - Toalla
   - EntregaToalla
+  - Demonio3
   layers:
   - Default
   - TransparentFX
