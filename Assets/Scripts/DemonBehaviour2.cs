@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class DemonBehaviour2 : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class DemonBehaviour2 : MonoBehaviour
 
     private NavMeshAgent agente;
     private bool enfadado = false;
+    private Vector3 puntoOrigen;
 
     void Start()
     {
@@ -16,10 +18,11 @@ public class DemonBehaviour2 : MonoBehaviour
         if (agente != null)
         {
             agente.isStopped = true;
-            agente.stoppingDistance = 0f;   
-            agente.autoBraking = false;     
-            agente.updateRotation = true;   
+            agente.stoppingDistance = 0f;
+            agente.autoBraking = false;
+            agente.updateRotation = true;
         }
+        puntoOrigen = transform.position;
     }
 
     void Update()
@@ -28,7 +31,6 @@ public class DemonBehaviour2 : MonoBehaviour
         {
             Vector3 direccion = jugador.position - transform.position;
             direccion.y = 0;
-
             if (direccion != Vector3.zero)
             {
                 Quaternion rotacionObjetivo = Quaternion.LookRotation(direccion);
@@ -49,7 +51,19 @@ public class DemonBehaviour2 : MonoBehaviour
         {
             agente.speed = 25f;
             enfadado = true;
-            Debug.Log("Demonio2 enfadado: comienza persecución rápida continua.");
+            StartCoroutine(CalmarDespuesDeTiempo(10f));
+        }
+    }
+
+    private IEnumerator CalmarDespuesDeTiempo(float segundos)
+    {
+        yield return new WaitForSeconds(segundos);
+        enfadado = false;
+        if (agente != null)
+        {
+            agente.speed = 5f; 
+            agente.isStopped = false;
+            agente.SetDestination(puntoOrigen); 
         }
     }
 
@@ -57,7 +71,6 @@ public class DemonBehaviour2 : MonoBehaviour
     {
         if (enfadado && other.CompareTag("Player"))
         {
-            Debug.Log("Demonio2 ha atrapado al jugador.");
             if (interfazGameOver != null)
             {
                 interfazGameOver.ShowGameOverMessage();
