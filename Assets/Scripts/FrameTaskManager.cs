@@ -37,12 +37,12 @@ public class FrameTaskManager : MonoBehaviour
         if (cerca && Input.GetKeyDown(KeyCode.E) && cuadroActual != null)
         {
             cuadroActual.Enderezar();
+        }
 
-            if (TodosRectos())
-            {
-                tareaCompletada = true;
-                Debug.Log("✅ ¡Todos los cuadros están rectos! Tarea completada.");
-            }
+        if (TodosRectos())
+        {
+            tareaCompletada = true;
+            Debug.Log("✅ ¡Todos los cuadros están rectos! Tarea completada.");
         }
     }
 

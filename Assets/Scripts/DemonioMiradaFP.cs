@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 // Demonio que se mueve solo cuando el jugador NO lo está mirando
 public class DemonioMiradaFP : MonoBehaviour
@@ -15,7 +16,7 @@ public class DemonioMiradaFP : MonoBehaviour
 
     [Header("Detección de mirada")]
     public float umbralDot = 0.7f;           // Sensibilidad del ángulo de visión (0.7 ≈ 45°)
-    public float maxDistanciaVista = 30f;    // Máxima distancia en la que el jugador puede verlo
+    public float maxDistanciaVista = 100f;    // Máxima distancia en la que el jugador puede verlo
     public LayerMask mascaraObstaculos;      // Capas que bloquean la visión
 
 
@@ -72,19 +73,20 @@ public class DemonioMiradaFP : MonoBehaviour
         if (dot < umbralDot) continue; // fuera del ángulo
 
         float distancia = Vector3.Distance(camaraJugador.transform.position, punto.position);
-        if (distancia > maxDistanciaVista) continue; // demasiado lejos
+        // if (distancia > maxDistanciaVista) continue; // demasiado lejos
 
-        // Raycast para comprobar si hay obstáculos
         if (Physics.Raycast(
-                camaraJugador.transform.position,
-                dirHaciaPunto,
-                out RaycastHit hit,
-                distancia,
-                mascaraObstaculos,
-                QueryTriggerInteraction.Ignore))
-        {
-            if (hit.transform != punto) continue; // no golpeó este punto
-        }
+        camaraJugador.transform.position,
+        dirHaciaPunto,
+        out RaycastHit hit,
+        distancia,
+        ~0, // ← esto significa "todas las capas"
+        QueryTriggerInteraction.Ignore))
+{
+    // Si lo primero que golpea NO es el demonio, la vista está bloqueada
+        if (hit.transform != transform && !puntosMirada.Contains(hit.transform))
+            continue;
+}
 
         // Si pasa todas las pruebas para este punto, el jugador lo está mirando
         return true;
