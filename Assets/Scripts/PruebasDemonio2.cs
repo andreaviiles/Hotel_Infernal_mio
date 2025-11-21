@@ -1,5 +1,7 @@
 //ESTE SCRIPT ES PARA PRUEBAS, SE TIENE QUE BORRAR MAS ADELANTE
 
+//ESTE SCRIPT ES PARA PRUEBAS, SE TIENE QUE BORRAR MAS ADELANTE
+
 using UnityEngine;
 
 public class PruebasDemonio2 : MonoBehaviour
@@ -19,59 +21,63 @@ public class PruebasDemonio2 : MonoBehaviour
 
     void Update()
     {
-        // Detectar si el jugador est� mirando a la toalla
-        if (!recogida && DetectarToalla() && Input.GetKeyDown(KeyCode.E))
+        // NO SE PUEDE RECOGER SI YA LLEVA OTRO OBJETO
+        if (!recogida && !playerMovement.EstaLlevandoObjeto && DetectarToalla() && Input.GetKeyDown(KeyCode.E))
         {
             recogida = true;
-            playerMovement.LlevarObjeto(true);
 
+            // La toalla SÍ reduce velocidad → reduceVelocidad = true
+            playerMovement.LlevarObjeto(true, true);
+
+            // Colocar en mano
             transform.SetParent(toallaAnchor);
             transform.localPosition = new Vector3(0, -0.4f, 0);
             transform.localRotation = Quaternion.identity;
             transform.localScale = Vector3.one * 0.5f;
 
             GetComponent<Collider>().enabled = false;
+
             Debug.Log("Toalla recogida");
         }
 
-        // Detectar si estamos cerca de la zona de entrega
+        // Entregar toalla
         if (recogida && !entregada)
         {
             Collider[] hits = Physics.OverlapSphere(playerMovement.transform.position, 2f);
+
             foreach (Collider hit in hits)
             {
-                if (hit.CompareTag("EntregaToalla"))
+                // Correcto
+                if (hit.CompareTag("EntregaToalla") && Input.GetKeyDown(KeyCode.E))
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
+                    entregada = true;
+
+                    // Dejar objeto
+                    playerMovement.SoltarObjeto();
+
+                    gameObject.SetActive(false);
+
+                    // Colocar toalla visual
+                    if (toallaVisualPrefab != null && puntoColocacion != null)
                     {
-                        entregada = true;
-                        playerMovement.LlevarObjeto(false);
-                        gameObject.SetActive(false);
-
-                        if (toallaVisualPrefab != null && puntoColocacion != null)
-                        {
-                            Vector3 offset = new Vector3(0, 0.5f, 0);
-                            Instantiate(toallaVisualPrefab, puntoColocacion.position + offset, puntoColocacion.rotation);
-                        }
-
-                        Debug.Log("Toalla entregada y colocada en el ba�o");
+                        Vector3 offset = new Vector3(0, 0.5f, 0);
+                        Instantiate(toallaVisualPrefab, puntoColocacion.position + offset, puntoColocacion.rotation);
                     }
+
+                    Debug.Log("Toalla entregada correctamente");
                 }
-                if (hit.CompareTag("EntregaToallaWrong"))
+
+                // Incorrecto
+                if (hit.CompareTag("EntregaToallaWrong") && Input.GetKeyDown(KeyCode.E))
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        entregada = true;
-                        playerMovement.LlevarObjeto(false);
-                        gameObject.SetActive(false);
+                    entregada = true;
+                    playerMovement.SoltarObjeto();
+                    gameObject.SetActive(false);
 
-                        Debug.Log("Toalla entregada en el sitio equivocado. Demonio2 se enfada!");
+                    Debug.Log("Toalla entregada en el sitio equivocado, Demonio enfadado!");
 
-                        if (demonio2 != null)
-                        {
-                            demonio2.ActivarPersecucionRapida();
-                        }
-                    }
+                    if (demonio2 != null)
+                        demonio2.ActivarPersecucionRapida();
                 }
             }
         }
@@ -82,12 +88,12 @@ public class PruebasDemonio2 : MonoBehaviour
             RaycastHit hit;
 
             if (Physics.SphereCast(ray, radioInteraccion, out hit, distanciaInteraccion))
-            {
                 return hit.collider != null && hit.collider.gameObject == gameObject;
-            }
 
             return false;
         }
     }
+
     public bool ToallaEntregada => entregada;
 }
+
