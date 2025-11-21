@@ -18,6 +18,8 @@ public class DemonioMiradaFP : MonoBehaviour
     public float maxDistanciaVista = 30f;    // Máxima distancia en la que el jugador puede verlo
     public LayerMask mascaraObstaculos;      // Capas que bloquean la visión
 
+
+    public Transform[] puntosMirada;
     private NavMeshAgent agente;
 
     void Start()
@@ -61,36 +63,36 @@ public class DemonioMiradaFP : MonoBehaviour
 
     // Detecta si el jugador realmente está mirando al demonio con FOV + línea de visión
     bool JugadorMeMiraConLineaDeVista()
+{
+    foreach (Transform punto in puntosMirada)
     {
-        // Dirección desde la cámara hacia el demonio
-        Vector3 dirHaciaDemonio = (transform.position - camaraJugador.transform.position).normalized;
+        Vector3 dirHaciaPunto = (punto.position - camaraJugador.transform.position).normalized;
+        float dot = Vector3.Dot(camaraJugador.transform.forward, dirHaciaPunto);
 
-        // Ángulo: comparación mediante Dot Product
-        float dot = Vector3.Dot(camaraJugador.transform.forward, dirHaciaDemonio);
+        if (dot < umbralDot) continue; // fuera del ángulo
 
-        // Si el demonio está fuera del ángulo permitido, no lo está mirando
-        if (dot < umbralDot) return false;
+        float distancia = Vector3.Distance(camaraJugador.transform.position, punto.position);
+        if (distancia > maxDistanciaVista) continue; // demasiado lejos
 
-        // Verificar distancia máxima de detección
-        float distancia = Vector3.Distance(camaraJugador.transform.position, transform.position);
-        if (distancia > maxDistanciaVista) return false;
-
-        // Raycast para comprobar si hay objetos bloqueando la vista
+        // Raycast para comprobar si hay obstáculos
         if (Physics.Raycast(
                 camaraJugador.transform.position,
-                dirHaciaDemonio,
+                dirHaciaPunto,
                 out RaycastHit hit,
                 distancia,
                 mascaraObstaculos,
                 QueryTriggerInteraction.Ignore))
         {
-            // Si lo primero que golpea NO es el demonio, la línea de visión está bloqueada
-            if (hit.transform != transform) return false;
+            if (hit.transform != punto) continue; // no golpeó este punto
         }
 
-        // Si pasa todas las pruebas, el jugador lo está mirando
+        // Si pasa todas las pruebas para este punto, el jugador lo está mirando
         return true;
     }
+
+    // Si ningún punto cumple las condiciones, no lo está mirando
+    return false;
+}
 
     // Si usa colisionador como detección de muerte
     void OnTriggerEnter(Collider other)
