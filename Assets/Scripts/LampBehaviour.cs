@@ -7,7 +7,7 @@ public class LampBehavior : MonoBehaviour
 {
     private Light lampLight;
     private bool encendida = false;
-    private float intensidadObjetivo = 200f; // Intensidad final al encender
+    private float intensidadObjetivo = 300f; // Intensidad final al encender
     private float velocidadEncendido = 300f; // Velocidad del efecto de encendido
 
     void Start()
