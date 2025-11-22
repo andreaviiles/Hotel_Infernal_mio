@@ -80,11 +80,12 @@ public class ToiletTaskManager : MonoBehaviour
         if (cerca && vaterActual != null && !vaterActual.EstaLimpio)
         {
             GUIStyle estilo = new GUIStyle(GUI.skin.label);
-            estilo.fontSize = 20;
+            estilo.fontSize = 40; // ← tamaño más grande
             estilo.normal.textColor = Color.white;
             estilo.alignment = TextAnchor.MiddleCenter;
 
-            Rect mensaje = new Rect(Screen.width / 2 - 200, Screen.height - 100, 400, 50);
+            // Rect más ancho y alto para acomodar el texto grande
+            Rect mensaje = new Rect(Screen.width / 2 - 200, Screen.height - 120, 400, 80);
 
             if (manteniendo)
             {
@@ -93,7 +94,7 @@ public class ToiletTaskManager : MonoBehaviour
             }
             else
             {
-                GUI.Label(mensaje, "Mantén E para limpiar váter", estilo);
+                GUI.Label(mensaje, "Mantén E para interactuar", estilo);
             }
         }
     }

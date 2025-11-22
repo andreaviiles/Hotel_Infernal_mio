@@ -61,12 +61,13 @@ public class FaucetTaskManager : MonoBehaviour
         if (cerca && grifoActual != null && !grifoActual.EstaCerrado)
         {
             GUIStyle estilo = new GUIStyle(GUI.skin.label);
-            estilo.fontSize = 20;
-            estilo.normal.textColor = Color.cyan;
+            estilo.fontSize = 40; // ← tamaño más grande
+            estilo.normal.textColor = Color.white;
             estilo.alignment = TextAnchor.MiddleCenter;
 
-            Rect mensaje = new Rect(Screen.width / 2 - 150, Screen.height - 100, 300, 50);
-            GUI.Label(mensaje, "E para cerrar grifo", estilo);
+            // Rect más ancho y alto para acomodar el texto grande
+            Rect mensaje = new Rect(Screen.width / 2 - 200, Screen.height - 120, 400, 80);
+            GUI.Label(mensaje, "E para interactuar", estilo);
         }
     }
 }
