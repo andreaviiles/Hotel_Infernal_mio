@@ -16,6 +16,7 @@ TagManager:
   - Contenedor
   - Telefono
   - Termometro
+  - Ventilador
   layers:
   - Default
   - TransparentFX
