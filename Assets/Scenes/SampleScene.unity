@@ -1074,8 +1074,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DemonBehaviour2
   jugador: {fileID: 1977953339}
-  velocidadRotacion: 3
   interfazGameOver: {fileID: 1993603830}
+  telefono: {fileID: 0}
+  velocidadRotacion: 3
+  distanciaMatar: 0.6
 --- !u!195 &368989838
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2339,6 +2341,7 @@ MonoBehaviour:
   minCorrecto: 23
   maxCorrecto: 25
   demonio2: {fileID: 368989837}
+  playerMovement: {fileID: 1977953345}
 --- !u!1 &806914945
 GameObject:
   m_ObjectHideFlags: 0
