@@ -13,9 +13,19 @@ public class ToiletTaskManager : MonoBehaviour
     private float contadorMantener = 0f;
     private bool manteniendo = false;
 
+    public PlayerMovement playerMovement;     // Referencia al jugador
+
+
     void Update()
     {
         if (tareaCompletada) return;
+
+        if (playerMovement != null && playerMovement.EstaLlevandoObjeto)
+        {
+            cerca = false;
+            vaterActual = null; // o grifoActual, cuadroActual, etc.
+            return; // Bloquea la interacción si lleva objeto
+        }
 
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 2f))

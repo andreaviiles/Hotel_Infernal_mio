@@ -9,9 +9,19 @@ public class FaucetTaskManager : MonoBehaviour
     private bool cerca = false;
     private bool tareaCompletada = false;
 
+    public PlayerMovement playerMovement;     // Referencia al jugador
+
+
     void Update()
     {
         if (tareaCompletada) return;
+
+        if (playerMovement != null && playerMovement.EstaLlevandoObjeto)
+        {
+            cerca = false;
+            grifoActual = null; // o grifoActual, cuadroActual, etc.
+            return; // Bloquea la interacción si lleva objeto
+        }
 
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 2f))
