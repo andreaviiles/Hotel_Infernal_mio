@@ -4,39 +4,23 @@ using System.Collections.Generic;
 // Administrador que controla la limpieza de varios cubos "limpiables"
 public class CleanerManager : MonoBehaviour
 {
-    // Cámara del jugador para lanzar el raycast
-    public Camera playerCamera;
+    public Camera playerCamera;               // Cámara del jugador
+    public GameObject[] cubosLimpiables;      // Lista de cubos limpiables
+    public PlayerMovement playerMovement;     // Referencia al jugador
 
-    // Lista de objetos que pueden ser limpiados
-    public GameObject[] cubosLimpiables;
-
-    // Referencia al script de movimiento del jugador (para saber si lleva un objeto)
-    public PlayerMovement playerMovement;
-
-    // Diccionario para llevar el conteo de interacciones por cubo
-    private Dictionary<GameObject, int> interacciones = new Dictionary<GameObject, int>();
-
-    // Cubo que el jugador está mirando actualmente
-    private GameObject cuboActual;
-
-    // Indica si el jugador está cerca del cubo y mirando hacia él
-    private bool cerca = false;
-
-    // Indica si todas las tareas de limpieza han terminado
-    private bool limpiezaCompletada = false;
+    private Dictionary<GameObject, int> interacciones = new Dictionary<GameObject, int>(); // Conteo de interacciones
+    private GameObject cuboActual;            // Cubo que el jugador está mirando
+    private bool cerca = false;               // Si el jugador está cerca mirando un cubo
+    private bool limpiezaCompletada = false;  // Si todas las tareas de limpieza han terminado
 
     void Start()
     {
-        // Inicializa cada cubo activándolo y asegurándose de que tenga el comportamiento CleanerBehavior
+        // Inicializa cada cubo
         foreach (GameObject cubo in cubosLimpiables)
         {
-            // Activa el cubo por si estaba apagado
             cubo.SetActive(true);
-
-            // Inicia su contador de interacciones en cero
             interacciones[cubo] = 0;
 
-            // Si el cubo no tiene el script CleanerBehavior, se le añade uno
             if (!cubo.TryGetComponent(out CleanerBehavior behavior))
                 cubo.AddComponent<CleanerBehavior>();
         }
@@ -44,10 +28,9 @@ public class CleanerManager : MonoBehaviour
 
     void Update()
     {
-        // Si ya se completó la limpieza, no ejecutar más lógica
         if (limpiezaCompletada) return;
 
-        // Bloqueo: si el jugador lleva un objeto (por ejemplo una toalla), no puede limpiar
+        // Bloqueo: si el jugador lleva un objeto, no puede limpiar
         if (playerMovement != null && playerMovement.EstaLlevandoObjeto)
         {
             cerca = false;
@@ -55,11 +38,10 @@ public class CleanerManager : MonoBehaviour
             return;
         }
 
-        // Raycast hacia adelante desde la cámara del jugador, con un alcance de 2 metros
+        // Detectar cubo con raycast
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 2f))
         {
-            // Si lo que mira el jugador tiene la etiqueta "Cleanable", se considera un cubo a limpiar
             if (hit.collider.CompareTag("Cleanable"))
             {
                 cuboActual = hit.collider.gameObject;
@@ -75,24 +57,20 @@ public class CleanerManager : MonoBehaviour
             cerca = false;
         }
 
-        // Si el jugador está mirando un cubo y presiona E
+        // Interactuar con cubo
         if (cerca && Input.GetKeyDown(KeyCode.E) && cuboActual != null)
         {
-            // Verifica que el cubo esté en el diccionario de interacciones
             if (interacciones.ContainsKey(cuboActual))
             {
-                // Suma una interacción
                 interacciones[cuboActual]++;
                 Debug.Log("Cubo " + cuboActual.name + ": " + interacciones[cuboActual] + " interacciones.");
 
-                // Si llegó a 3 interacciones, se "limpia" el cubo desactivándolo
                 if (interacciones[cuboActual] >= 3)
                 {
                     cuboActual.SetActive(false);
                     interacciones[cuboActual] = 0;
                 }
 
-                // Si todos los cubos están desactivados, la limpieza termina
                 if (TodosCubosDesactivados())
                 {
                     limpiezaCompletada = true;
@@ -102,7 +80,7 @@ public class CleanerManager : MonoBehaviour
         }
     }
 
-    // Revisa si cada cubo limpiable está desactivado
+    // Revisar si todos los cubos están desactivados
     bool TodosCubosDesactivados()
     {
         foreach (GameObject cubo in cubosLimpiables)
@@ -113,6 +91,20 @@ public class CleanerManager : MonoBehaviour
         return true;
     }
 
-    // Propiedad pública para consultar desde otros scripts si se completó la limpieza
     public bool LimpiezaCompletada => limpiezaCompletada;
+
+    // GUI para mostrar mensaje en pantalla
+    void OnGUI()
+    {
+        if (cerca && !limpiezaCompletada && cuboActual != null)
+        {
+            GUIStyle estilo = new GUIStyle(GUI.skin.label);
+            estilo.fontSize = 40;
+            estilo.normal.textColor = Color.white;
+            estilo.alignment = TextAnchor.MiddleCenter;
+            Rect mensaje = new Rect(Screen.width / 2 - 200, Screen.height - 120, 400, 80);
+            GUI.Label(mensaje, "Pulsa E para limpiar cubo", estilo);
+        }
+    }
 }
+

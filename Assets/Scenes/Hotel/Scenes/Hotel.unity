@@ -2363,9 +2363,13 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7485066163829529813, guid: 635a6a6f9e29fc14ab0611d1f6d561a8, type: 3}
+      propertyPath: m_TagString
+      value: EntregaToallaWrong
+      objectReference: {fileID: 0}
     - target: {fileID: 8502857682835484379, guid: 635a6a6f9e29fc14ab0611d1f6d561a8, type: 3}
       propertyPath: m_Name
-      value: EntregaToalla
+      value: EntregaToallaWrong
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14822,7 +14826,7 @@ PrefabInstance:
     - target: {fileID: 8169776379383352267, guid: 86073e57c96407846a8d770150fd945b, type: 3}
       propertyPath: puntoColocacion
       value: 
-      objectReference: {fileID: 1662860353}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16238,7 +16242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8502857682835484379, guid: 635a6a6f9e29fc14ab0611d1f6d561a8, type: 3}
       propertyPath: m_Name
-      value: EntregaToallaWrong
+      value: EntregaToallaWrong1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17188,11 +17192,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.01703386, y: 0.0046685385, z: 0.0052908086}
   m_Center: {x: -0.00057386927, y: 0.0041368534, z: 0.00039798833}
---- !u!4 &1662860353 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a6c6723c830caa448891d54d5391d53a, type: 3}
-  m_PrefabInstance: {fileID: 1662860350}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1670752513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22516,15 +22515,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7485066163829529813, guid: 635a6a6f9e29fc14ab0611d1f6d561a8, type: 3}
       propertyPath: m_TagString
-      value: "Ba\xF1era"
+      value: EntregaToalla
       objectReference: {fileID: 0}
     - target: {fileID: 8502857682835484379, guid: 635a6a6f9e29fc14ab0611d1f6d561a8, type: 3}
       propertyPath: m_Name
-      value: EntregaToallaWrong2
+      value: EntregaToalla
       objectReference: {fileID: 0}
     - target: {fileID: 8502857682835484379, guid: 635a6a6f9e29fc14ab0611d1f6d561a8, type: 3}
       propertyPath: m_TagString
-      value: EntregaToallaWrong
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
