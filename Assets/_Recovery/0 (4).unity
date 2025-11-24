@@ -590,7 +590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 834820034416263193, guid: df18ee50120ecdc4cbb908fa37dd4d9c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -13.2
       objectReference: {fileID: 0}
     - target: {fileID: 834820034416263193, guid: df18ee50120ecdc4cbb908fa37dd4d9c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -618,7 +618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3096732955735691641, guid: df18ee50120ecdc4cbb908fa37dd4d9c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -320
+      value: -316.66
       objectReference: {fileID: 0}
     - target: {fileID: 8182798133356245021, guid: df18ee50120ecdc4cbb908fa37dd4d9c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7134,6 +7134,10 @@ PrefabInstance:
       propertyPath: interfazGameOver
       value: 
       objectReference: {fileID: 836499329}
+    - target: {fileID: 6601319120080862210, guid: 03ae7c60452575146bca768320ef50b7, type: 3}
+      propertyPath: velocidadPersecucion
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15479,7 +15483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4700553763237880522, guid: f3b9d6f157f12e547af46da3c74c0d38, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5132575936992809652, guid: f3b9d6f157f12e547af46da3c74c0d38, type: 3}
       propertyPath: m_IsTrigger
@@ -20651,7 +20655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8283034260407169360, guid: 471ec89e5298b3c4f8725380cd6f559b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8771023516528405482, guid: 471ec89e5298b3c4f8725380cd6f559b, type: 3}
       propertyPath: m_LocalScale.x
