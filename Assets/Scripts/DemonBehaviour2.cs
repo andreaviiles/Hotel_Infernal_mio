@@ -34,7 +34,7 @@ public class DemonBehaviour2 : MonoBehaviour
             agente.autoBraking = true;         // imprescindible para frenar en el destino
             agente.updateRotation = false;     // rotacion manual para mayor control
             agente.updatePosition = true;      // que el agente actualice su posicion
-            agente.acceleration = 100f;        // respuesta inmediata
+            agente.acceleration = 200f;        // respuesta inmediata
             agente.angularSpeed = 720f;        // giros rapidos
             agente.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
         }
@@ -85,10 +85,10 @@ public class DemonBehaviour2 : MonoBehaviour
         {
             enfadado = true;
             agente.isStopped = false;
-            agente.speed = 25f;
+            agente.speed = 200f;
 
             // Opcional: calma despues de 10 segundos
-            StartCoroutine(CalmarDespuesDeTiempo(10f));
+            StartCoroutine(CalmarDespuesDeTiempo(15f));
         }
     }
 

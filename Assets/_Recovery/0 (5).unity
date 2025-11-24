@@ -11820,9 +11820,9 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 4, z: 0.5}
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 1
+  m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -13160,9 +13160,9 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 4, z: 0.5}
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 1
+  m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -15700,7 +15700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4700553763237880522, guid: f3b9d6f157f12e547af46da3c74c0d38, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5132575936992809652, guid: f3b9d6f157f12e547af46da3c74c0d38, type: 3}
       propertyPath: m_IsTrigger
@@ -20968,7 +20968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8283034260407169360, guid: 471ec89e5298b3c4f8725380cd6f559b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8771023516528405482, guid: 471ec89e5298b3c4f8725380cd6f559b, type: 3}
       propertyPath: m_LocalScale.x
