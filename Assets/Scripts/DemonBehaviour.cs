@@ -5,133 +5,203 @@ public class DemonBehaviour : MonoBehaviour
 {
     public Transform jugador;                     // Referencia al jugador
     public GameOverUITMP interfazGameOver;        // Referencia a la interfaz de Game Over
-    public Transform[] puntosPatrulla;           // Lista de puntos por donde patrulla
-    
+    public Transform[] puntosPatrulla;            // Lista de puntos por donde patrulla
+
     public float velocidadNormal = 5.5f;          // Velocidad cuando patrulla o persigue suave
-    public float velocidadMatar = 8f;             // Velocidad cuando esta en modo matar
+    public float velocidadMatar = 10f;            // Velocidad cuando esta en modo matar
     public float distanciaMinima = 6f;            // Distancia a la que se detiene cuando no mata
 
     private NavMeshAgent agente;                  // Componente de navegacion
     private bool enfadado = false;                // Persigue sin matar
     private bool faseFinal = false;               // Persigue para matar
     private int puntoActual = -1;                 // Indice del punto de patrulla actual
+    private float tiempoAtascado = 0f;            // Tiempo que lleva atascado
+    private Vector3 ultimaPosicion;               // Para detectar si esta atascado
+    private float tiempoRecalculo = 0f;           // Control de recalculo de destino
 
     void Start()
     {
-        // Obtener el NavMeshAgent y configurar valores iniciales
         agente = GetComponent<NavMeshAgent>();
         agente.speed = velocidadNormal;
         agente.stoppingDistance = distanciaMinima;
+        agente.acceleration = 8f;
+        agente.angularSpeed = 360f;              // Giro rapido para pasillos
+        agente.autoBraking = true;
 
-        // Empezar patrullando
+        // Evitacion de obstaculos de alta calidad
+        agente.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+        agente.avoidancePriority = 50;
+        agente.radius = 0.4f;                    // Radio reducido para pasillos estrechos
+
+        ultimaPosicion = transform.position;
+
         MoverAPuntoDePatrulla();
     }
 
     void Update()
     {
-        // Mientras esta tranquilo y no en modo matar, patrulla
+        DetectarAtasco();
+
+        // Patrulla si esta tranquilo
         if (!enfadado && !faseFinal)
         {
-            // Cuando llega al punto, selecciona uno nuevo
             if (!agente.pathPending && agente.remainingDistance <= agente.stoppingDistance)
             {
                 MoverAPuntoDePatrulla();
             }
         }
 
-        // Si esta enfadado o en fase final, persigue al jugador
+        // Persigue al jugador si esta enfadado o en fase final
         if ((enfadado || faseFinal) && jugador != null)
         {
-            agente.SetDestination(jugador.position);
+            tiempoRecalculo += Time.deltaTime;
+
+            // Recalcular destino cada medio segundo en vez de cada frame
+            if (tiempoRecalculo >= 0.5f)
+            {
+                agente.SetDestination(jugador.position);
+                tiempoRecalculo = 0f;
+            }
         }
     }
 
-    // Selecciona un punto de patrulla al azar y se dirige a el
+    // Detectar si el agente esta atascado
+    void DetectarAtasco()
+    {
+        float distanciaRecorrida = Vector3.Distance(transform.position, ultimaPosicion);
+
+        if (distanciaRecorrida < 0.1f && agente.hasPath && !agente.isStopped)
+        {
+            tiempoAtascado += Time.deltaTime;
+
+            if (tiempoAtascado > 2f)
+            {
+                ResolverAtasco();
+            }
+        }
+        else
+        {
+            tiempoAtascado = 0f;
+        }
+
+        ultimaPosicion = transform.position;
+    }
+
+    void ResolverAtasco()
+    {
+        Debug.Log("Demonio atascado - recalculando ruta...");
+        agente.ResetPath();
+        Invoke("RecalcularRuta", 0.5f);
+        tiempoAtascado = 0f;
+    }
+
+    void RecalcularRuta()
+    {
+        if (enfadado || faseFinal)
+        {
+            if (jugador != null)
+            {
+                agente.SetDestination(jugador.position);
+            }
+        }
+        else
+        {
+            MoverAPuntoDePatrulla();
+        }
+    }
+
     void MoverAPuntoDePatrulla()
     {
         if (puntosPatrulla == null || puntosPatrulla.Length == 0) return;
 
         int nuevoIndice;
-
-        // Asegurar que no tome el mismo punto consecutivamente
         do
         {
             nuevoIndice = Random.Range(0, puntosPatrulla.Length);
-        } 
+        }
         while (nuevoIndice == puntoActual && puntosPatrulla.Length > 1);
 
         puntoActual = nuevoIndice;
 
-        // Moverse hacia el punto seleccionado
-        agente.SetDestination(puntosPatrulla[puntoActual].position);
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(puntosPatrulla[puntoActual].position, out hit, 1f, NavMesh.AllAreas))
+        {
+            agente.SetDestination(hit.position);
+            Debug.Log($"Demonio patrullando hacia: {puntosPatrulla[puntoActual].name}");
+        }
+        else
+        {
+            Debug.LogWarning($"Punto de patrulla fuera del NavMesh: {puntosPatrulla[puntoActual].name}");
+        }
     }
 
-    // Activa persecucion sin matar
     public void ActivarPersecucionSuave()
     {
         enfadado = true;
         faseFinal = false;
         agente.speed = velocidadNormal;
         agente.stoppingDistance = distanciaMinima;
+        agente.autoBraking = true;
+        agente.acceleration = 8f;
+        agente.angularSpeed = 360f;
     }
 
-    // Activa modo matar, teletransporta cerca del jugador y acelera
     public void ActivarModoMatar()
     {
-        enfadado = true;
+        enfadado = false;
         faseFinal = true;
         agente.speed = velocidadMatar;
         agente.stoppingDistance = 0f;
-        Teletransportarse();
+        agente.autoBraking = false;
+        agente.acceleration = 12f;
+        agente.angularSpeed = 480f;
+
+        if (jugador != null)
+        {
+            agente.SetDestination(jugador.position);
+        }
+
+        Debug.Log("Demonio en modo matar: persecucion rapida directa.");
     }
 
-    // Intenta calmar al demonio, solo si no esta en modo matar
     public void Calmar()
     {
-        // No puede ser calmado si ya esta en fase final
         if (faseFinal) return;
 
-        // Vuelve a patrullar
         enfadado = false;
         agente.speed = velocidadNormal;
         agente.stoppingDistance = distanciaMinima;
+        agente.autoBraking = true;
+        agente.acceleration = 8f;
+        agente.angularSpeed = 360f;
         MoverAPuntoDePatrulla();
     }
 
-    // Teletransporta al demonio cerca del jugador usando NavMesh
-    public void Teletransportarse()
-    {
-        if (jugador != null)
-        {
-            // Calcular un punto aleatorio alrededor del jugador
-            Vector3 direccionAleatoria = Random.onUnitSphere;
-            direccionAleatoria.y = 0;
-            direccionAleatoria.Normalize();
-            
-            Vector3 destino = jugador.position + direccionAleatoria * 12f;
-
-            NavMeshHit hit;
-
-            // Buscar una posicion valida en el NavMesh
-            if (NavMesh.SamplePosition(destino, out hit, 10f, NavMesh.AllAreas))
-            {
-                transform.position = hit.position;
-                agente.SetDestination(jugador.position);
-            }
-        }
-    }
-
-    // Detecta si atrapo al jugador durante la fase final
     void OnTriggerEnter(Collider other)
     {
         if (faseFinal && other.CompareTag("Player"))
         {
             if (interfazGameOver != null)
             {
-                // Mostrar interfaz de Game Over y pausar el juego
                 interfazGameOver.ShowGameOverMessage();
                 Time.timeScale = 0f;
+                Debug.Log("El demonio ha atrapado al jugador en modo matar.");
             }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (agente != null && agente.hasPath)
+        {
+            Gizmos.color = Color.red;
+            for (int i = 0; i < agente.path.corners.Length - 1; i++)
+            {
+                Gizmos.DrawLine(agente.path.corners[i], agente.path.corners[i + 1]);
+            }
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(agente.destination, 0.5f);
         }
     }
 }
