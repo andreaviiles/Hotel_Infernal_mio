@@ -11,6 +11,10 @@ public class GameTaskManager : MonoBehaviour
     [Header("Interfaz de usuario")]
     public GameObject juegoFinalizadoCanvas;      // Canvas de victoria
     public GameOverUITMP interfazGameOver;        // Canvas de derrota
+    public GameObject Indice;                     // Canvas del checklist
+    public GameObject TelefonoCanvas;
+    public GameObject VentiladorCanvas;
+    public GameObject TermometroCanvas;
 
     [Header("Temporizadores")]
     public float tiempoDemonio = 210f;            // 3.5 minutos para tareas del demonio
@@ -24,6 +28,9 @@ public class GameTaskManager : MonoBehaviour
     private bool demonioCalmado = false;          // Si el demonio fue calmado
     private bool juegoGanado = false;             // Si el jugador gano
     private bool juegoPerdido = false;            // Si el jugador perdio
+
+
+
 
     void Start()
     {
@@ -312,6 +319,15 @@ public class GameTaskManager : MonoBehaviour
     {
         if (Time.timeScale == 0f) return;
 
+        // Si alguno de los Canvas de interacción está activo, no mostrar GUI
+        if ((Indice != null && Indice.activeSelf) ||
+            (TelefonoCanvas != null && TelefonoCanvas.activeSelf) ||
+            (VentiladorCanvas != null && VentiladorCanvas.activeSelf) ||
+            (TermometroCanvas != null && TermometroCanvas.activeSelf))
+        {
+            return;
+        }
+
         GUIStyle estiloTexto = new GUIStyle(GUI.skin.label);
         estiloTexto.fontSize = 34;
         estiloTexto.normal.textColor = Color.white;
@@ -335,7 +351,7 @@ public class GameTaskManager : MonoBehaviour
         string textoContador = $"Tareas: {tareasCompletadas}/{totalTareas}";
         GUI.Label(new Rect(Screen.width / 2 - 150, 20, 300, 50), textoContador, estiloContador);
 
-        // BARRA TIEMPO GENERAL (8 minutos)
+        // BARRA TIEMPO GENERAL
         GUI.color = Color.gray;
         GUI.DrawTexture(new Rect(x, y, anchoBarra, altoBarra), Texture2D.whiteTexture);
 
@@ -347,49 +363,31 @@ public class GameTaskManager : MonoBehaviour
         GUI.color = juegoGanado ? Color.green : Color.white;
         GUI.Label(new Rect(x, y - 45, anchoBarra, 45), textoGeneral, estiloTexto);
 
-        // BARRA TIEMPO DEMONIO (3.5 minutos)
+        // BARRA TIEMPO DEMONIO
         if (!demonioCalmado && !juegoGanado)
         {
-            float tiempoMostrar = Mathf.Max(0f, tiempoRestanteDemonio); // nunca negativo
+            float tiempoMostrar = Mathf.Max(0f, tiempoRestanteDemonio);
             float porcentajeDemonio = tiempoMostrar / tiempoDemonio;
 
-            // Fondo de la barra
             GUI.color = Color.gray;
             GUI.DrawTexture(new Rect(x, y + 60, anchoBarra, 25), Texture2D.whiteTexture);
 
-            // Color de la barra segun estado
             if (tiempoMostrar <= 0f || modoMatarActivado)
-            {
-                GUI.color = Color.red; // rojo fijo en modo matar o tiempo agotado
-            }
+                GUI.color = Color.red;
             else if (persecucionActivada)
-            {
-                GUI.color = new Color(1f, 0.5f, 0f); // naranja intenso
-            }
+                GUI.color = new Color(1f, 0.5f, 0f);
             else
-            {
-                GUI.color = new Color(1f, 0.7f, 0.2f); // naranja suave
-            }
+                GUI.color = new Color(1f, 0.7f, 0.2f);
 
             GUI.DrawTexture(new Rect(x, y + 60, anchoBarra * porcentajeDemonio, 25), Texture2D.whiteTexture);
 
-            // Texto del temporizador del demonio
             GUIStyle estiloDemonio = new GUIStyle(GUI.skin.label);
             estiloDemonio.fontSize = 28;
             estiloDemonio.normal.textColor = Color.white;
             estiloDemonio.alignment = TextAnchor.UpperLeft;
             estiloDemonio.fontStyle = FontStyle.Bold;
 
-            string textoDemonio;
-            if (tiempoMostrar <= 0f)
-            {
-                textoDemonio = "PELIGRO: Demonio desatado!";
-            }
-            else
-            {
-                textoDemonio = $"Demonio: {tiempoMostrar:F0}s / 210s";
-            }
-
+            string textoDemonio = tiempoMostrar <= 0f ? "PELIGRO: Demonio desatado!" : $"Demonio: {tiempoMostrar:F0}s / 210s";
             GUI.Label(new Rect(x, y + 90, anchoBarra, 35), textoDemonio, estiloDemonio);
         }
 
@@ -399,11 +397,10 @@ public class GameTaskManager : MonoBehaviour
                               (persecucionActivada ? "DEMONIO: ENFADADO" : "DEMONIO: TRANQUILO"));
         GUI.Label(new Rect(x, y + 130, anchoBarra, 45), estadoDemonio, estiloTexto);
 
-        // MENSAJE DE VICTORIA
         if (juegoGanado)
-        {
             GUI.Label(new Rect(x, y + 180, anchoBarra, 45), "TODAS LAS TAREAS COMPLETADAS", estiloTexto);
-        }
     }
+
+
 
 }

@@ -14,6 +14,10 @@ public class DogChase : MonoBehaviour
     private bool isPlayerNearby = false;      // Si el jugador está lo suficientemente cerca
     private bool hasInteracted = false;       // Para saber si el jugador ya interactuó
 
+    public GameObject Indice;
+    public GameObject TelefonoCanvas;
+    public GameObject VentiladorCanvas;
+    public GameObject TermometroCanvas;
     void Start()
     {
         // Obtener referencias necesarias
@@ -101,8 +105,16 @@ public class DogChase : MonoBehaviour
     // Mostrar interacción y temporizador en pantalla
     void OnGUI()
     {
-        // No mostrar nada si el juego está pausado
         if (Time.timeScale == 0f) return;
+
+        // Si alguno de los Canvas de interacción está activo, no mostrar GUI
+        if ((Indice != null && Indice.activeSelf) ||
+            (TelefonoCanvas != null && TelefonoCanvas.activeSelf) ||
+            (VentiladorCanvas != null && VentiladorCanvas.activeSelf) ||
+            (TermometroCanvas != null && TermometroCanvas.activeSelf))
+        {
+            return;
+        }
 
         // Mensaje para interactuar si el jugador está cerca y el perro no persigue
         if (isPlayerNearby && !timerScript.isChasing)
@@ -128,5 +140,7 @@ public class DogChase : MonoBehaviour
             GUI.Label(timerRect, "Tiempo perro: " + timerScript.GetTimeRemaining().ToString("F1") + "s", timerStyle);
         }
     }
+
+
 
 }
