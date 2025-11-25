@@ -16,6 +16,9 @@ public class DemonBehaviour2 : MonoBehaviour
     // NavMesh
     private NavMeshAgent agente;
 
+    // Animator
+    private Animator anim;
+
     // Estado
     private bool enfadado = false;
     private Vector3 puntoOrigen;
@@ -26,6 +29,7 @@ public class DemonBehaviour2 : MonoBehaviour
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>(); 
         if (agente != null)
         {
             // Configuracion para parada precisa en el objetivo
@@ -76,7 +80,21 @@ public class DemonBehaviour2 : MonoBehaviour
                 agente.isStopped = true; // detener en el borde
             }
         }
+        ActualizarAnimacion();
     }
+
+    // Animacion
+    void ActualizarAnimacion() {
+    if (anim == null || agente == null) return;
+
+    // Está caminando si el agente no está parado y se está moviendo algo
+    bool estaCaminando =
+        !agente.isStopped &&
+        agente.velocity.sqrMagnitude > 0.01f;  // velocidad > 0
+
+    anim.SetBool("isWalking", estaCaminando);
+}
+
 
     // Activa persecucion rapida durante un tiempo limitado
     public void ActivarPersecucionRapida()
