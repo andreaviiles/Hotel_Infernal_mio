@@ -38,7 +38,7 @@ public class DemonBehaviour2 : MonoBehaviour
             agente.autoBraking = true;         // imprescindible para frenar en el destino
             agente.updateRotation = false;     // rotacion manual para mayor control
             agente.updatePosition = true;      // que el agente actualice su posicion
-            agente.acceleration = 200f;        // respuesta inmediata
+            agente.acceleration = 300f;        // respuesta inmediata
             agente.angularSpeed = 720f;        // giros rapidos
             agente.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
         }
@@ -63,7 +63,7 @@ public class DemonBehaviour2 : MonoBehaviour
         if (enfadado)
         {
             agente.isStopped = false;
-            agente.speed = 25f;                    // velocidad alta solicitada
+            agente.speed = 70f;                    // velocidad alta solicitada
             agente.SetDestination(jugador.position); // actualiza destino cada frame
 
             // Si esta dentro de la distancia de matar, activa GameOver

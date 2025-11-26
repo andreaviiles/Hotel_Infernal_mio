@@ -243,9 +243,6 @@ PrefabInstance:
       addedObject: {fileID: 604364234252512121}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 99c073e95e1526f41a484d1fdade590a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6866377232861509800}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 99c073e95e1526f41a484d1fdade590a, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 9187255629221477970}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 99c073e95e1526f41a484d1fdade590a, type: 3}
       insertIndex: -1
@@ -320,20 +317,6 @@ MonoBehaviour:
   doubleTap: 0.4
   dashSpeed: 9
   dashDuration: 0.8
---- !u!114 &6866377232861509800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1569657059865451962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 907f4fb7f246100419fb57b77b8e3aa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionScript
-  distancia: 2
-  playerCamera: {fileID: 983909079839170388}
 --- !u!65 &9187255629221477970
 BoxCollider:
   m_ObjectHideFlags: 0

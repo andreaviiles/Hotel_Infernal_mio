@@ -140,49 +140,49 @@ public class GameTaskManager : MonoBehaviour
         if (!patitoOk) return false;
 
         // 5. Limpieza
-        CleanerManager limpieza = FindObjectOfType<CleanerManager>();
+        CleanerManager limpieza = FindFirstObjectByType<CleanerManager>();
         bool limpiezaOk = limpieza != null && limpieza.TareaCompletada();
         Debug.Log($"Limpieza completada: {limpiezaOk} (Limpieza encontrada: {limpieza != null})");
         if (!limpiezaOk) return false;
 
         // 6. Váteres
-        ToiletTaskManager vateres = FindObjectOfType<ToiletTaskManager>();
+        ToiletTaskManager vateres = FindFirstObjectByType<ToiletTaskManager>();
         bool vateresOk = vateres != null && vateres.TareaCompletada();
         Debug.Log($"Váteres completados: {vateresOk} (Váteres encontrados: {vateres != null})");
         if (!vateresOk) return false;
 
         // 7. Grifos
-        FaucetTaskManager grifos = FindObjectOfType<FaucetTaskManager>();
+        FaucetTaskManager grifos = FindFirstObjectByType<FaucetTaskManager>();
         bool grifosOk = grifos != null && grifos.TareaCompletada();
         Debug.Log($"Grifos completados: {grifosOk} (Grifos encontrados: {grifos != null})");
         if (!grifosOk) return false;
 
         // 8. Cuadros
-        FrameTaskManager cuadros = FindObjectOfType<FrameTaskManager>();
+        FrameTaskManager cuadros = FindFirstObjectByType<FrameTaskManager>();
         bool cuadrosOk = cuadros != null && cuadros.TareaCompletada();
         Debug.Log($"Cuadros completados: {cuadrosOk} (Cuadros encontrados: {cuadros != null})");
         if (!cuadrosOk) return false;
 
         // 9. Lámparas
-        LampTaskManager lamparas = FindObjectOfType<LampTaskManager>();
+        LampTaskManager lamparas = FindFirstObjectByType<LampTaskManager>();
         bool lamparasOk = lamparas != null && lamparas.TareaCompletada();
         Debug.Log($"Lámparas completadas: {lamparasOk} (Lámparas encontradas: {lamparas != null})");
         if (!lamparasOk) return false;
 
         // 10. Teléfono
-        TelefonoInteract telefono = FindObjectOfType<TelefonoInteract>();
+        TelefonoInteract telefono = FindFirstObjectByType<TelefonoInteract>();
         bool telefonoOk = telefono != null && telefono.TareaCompletada();
         Debug.Log($"Teléfono completado: {telefonoOk} (Teléfono encontrado: {telefono != null})");
         if (!telefonoOk) return false;
 
         // 11. Termómetro
-        TermometroInteract termometro = FindObjectOfType<TermometroInteract>();
+        TermometroInteract termometro = FindFirstObjectByType<TermometroInteract>();
         bool termometroOk = termometro != null && termometro.TareaCompletada();
         Debug.Log($"Termómetro completado: {termometroOk} (Termómetro encontrado: {termometro != null})");
         if (!termometroOk) return false;
 
         // 12. Ventilador
-        VentiladorInteract ventilador = FindObjectOfType<VentiladorInteract>();
+        VentiladorInteract ventilador = FindFirstObjectByType<VentiladorInteract>();
         bool ventiladorOk = ventilador != null && ventilador.TareaCompletada();
         Debug.Log($"Ventilador completado: {ventiladorOk} (Ventilador encontrado: {ventilador != null})");
         if (!ventiladorOk) return false;
@@ -221,56 +221,56 @@ public class GameTaskManager : MonoBehaviour
             Debug.Log($"✅ Patitos contados: {PatitoPickup.patitosEntregados}/{PatitoPickup.totalPatitos}");
         }
 
-        CleanerManager limpieza = FindObjectOfType<CleanerManager>();
+        CleanerManager limpieza = FindFirstObjectByType<CleanerManager>();
         if (limpieza != null && limpieza.TareaCompletada())
         {
             contador++;
             Debug.Log("✅ Limpieza contada");
         }
 
-        ToiletTaskManager vateres = FindObjectOfType<ToiletTaskManager>();
+        ToiletTaskManager vateres = FindFirstObjectByType<ToiletTaskManager>();
         if (vateres != null && vateres.TareaCompletada())
         {
             contador++;
             Debug.Log("✅ Váteres contados");
         }
 
-        FaucetTaskManager grifos = FindObjectOfType<FaucetTaskManager>();
+        FaucetTaskManager grifos = FindFirstObjectByType<FaucetTaskManager>();
         if (grifos != null && grifos.TareaCompletada())
         {
             contador++;
             Debug.Log("✅ Grifos contados");
         }
 
-        FrameTaskManager cuadros = FindObjectOfType<FrameTaskManager>();
+        FrameTaskManager cuadros = FindFirstObjectByType<FrameTaskManager>();
         if (cuadros != null && cuadros.TareaCompletada())
         {
             contador++;
             Debug.Log("✅ Cuadros contados");
         }
 
-        LampTaskManager lamparas = FindObjectOfType<LampTaskManager>();
+        LampTaskManager lamparas = FindFirstObjectByType<LampTaskManager>();
         if (lamparas != null && lamparas.TareaCompletada())
         {
             contador++;
             Debug.Log("✅ Lámparas contadas");
         }
 
-        TelefonoInteract telefono = FindObjectOfType<TelefonoInteract>();
+        TelefonoInteract telefono = FindFirstObjectByType<TelefonoInteract>();
         if (telefono != null && telefono.TareaCompletada())
         {
             contador++;
             Debug.Log("✅ Teléfono contado");
         }
 
-        TermometroInteract termometro = FindObjectOfType<TermometroInteract>();
+        TermometroInteract termometro = FindFirstObjectByType<TermometroInteract>();
         if (termometro != null && termometro.TareaCompletada())
         {
             contador++;
             Debug.Log("✅ Termómetro contado");
         }
 
-        VentiladorInteract ventilador = FindObjectOfType<VentiladorInteract>();
+        VentiladorInteract ventilador = FindFirstObjectByType<VentiladorInteract>();
         if (ventilador != null && ventilador.TareaCompletada())
         {
             contador++;
