@@ -17169,6 +17169,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &1531088820 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4871497745949491386, guid: 6e1ba69bfdc69eb46a5814b6d044b65d, type: 3}
+  m_PrefabInstance: {fileID: 1884281745}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1533972395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21673,22 +21678,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2175508119027843194, guid: 6e1ba69bfdc69eb46a5814b6d044b65d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4871497745949491386, guid: 6e1ba69bfdc69eb46a5814b6d044b65d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1884281751}
   m_SourcePrefab: {fileID: 100100000, guid: 6e1ba69bfdc69eb46a5814b6d044b65d, type: 3}
 --- !u!114 &1884281746 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1683600062077155201, guid: 6e1ba69bfdc69eb46a5814b6d044b65d, type: 3}
   m_PrefabInstance: {fileID: 1884281745}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1531088820}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3e234ca812ae7441bc741b3107c62bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DemonBehaviour
+--- !u!95 &1884281751
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531088820}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 396b436cace334243ba093752df43bd4, type: 3}
+  m_Controller: {fileID: 9100000, guid: e59029a5118a346a3aec25d41c299230, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1896458706
 PrefabInstance:
   m_ObjectHideFlags: 0
